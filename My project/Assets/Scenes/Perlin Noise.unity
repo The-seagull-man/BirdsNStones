@@ -269,12 +269,16 @@ PrefabInstance:
       value: Perlin Noise Ground
       objectReference: {fileID: 0}
     - target: {fileID: 4087561182303691389, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087561182303691389, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.46
       objectReference: {fileID: 0}
     - target: {fileID: 4087561182303691389, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4087561182303691389, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -312,9 +316,45 @@ PrefabInstance:
       propertyPath: m_DynamicOccludee
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5156455972305658995, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: m_LocalAABB.m_Center.x
+      value: 44.859715
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156455972305658995, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: m_LocalAABB.m_Center.y
+      value: -11.846615
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156455972305658995, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: m_LocalAABB.m_Extent.x
+      value: 49.312103
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156455972305658995, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: m_LocalAABB.m_Extent.y
+      value: 10.923389
+      objectReference: {fileID: 0}
+    - target: {fileID: 6850589072319828506, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: _noiseStep
+      value: -203.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6850589072319828506, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: _levelLength
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6850589072319828506, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: _xMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6850589072319828506, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: _yMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8543226712654780168, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
       propertyPath: m_Creator
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543226712654780168, guid: b0df82cd188cc814998a1996be43f19a, type: 3}
+      propertyPath: m_BoundsScale
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
