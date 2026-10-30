@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "Sten",
+            "id": "f4b428b7-89fe-4041-9c80-2d1cf887f94a",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "b9c609f7-3861-48c2-83af-c3236c634cc7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d9db01a6-fb35-4b83-a837-90b8e8f1859c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
