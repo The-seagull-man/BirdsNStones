@@ -29,12 +29,11 @@ public class Movement : MonoBehaviour
             }
             else
             {
-                _rb.rotation = -33;
+                _rb.linearVelocityY = _speedY;
             }
         }
-       /* RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10,_layerMask);
-        Debug.DrawRay(transform.position,Vector2.down, Color.red,10);
-
+       /*RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10,_layerMask);
+        Debug.DrawRay(transform.pos 
         transform.rotation = Quaternion.LookRotation(Vector2.up);
         if (hit)
         {
