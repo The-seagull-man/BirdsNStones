@@ -314,7 +314,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _isNotVisible: 0
   _isLeftOfPlayer: 0
-  _offSetLeftOfPlayer: -18
+  _offSetLeftOfPlayer: -38
 --- !u!1 &6104754125238151217
 GameObject:
   m_ObjectHideFlags: 0
