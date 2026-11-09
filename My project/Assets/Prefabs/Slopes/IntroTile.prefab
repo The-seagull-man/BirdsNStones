@@ -310,7 +310,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _camera: {fileID: 0}
+  _shapeRenderer: {fileID: 0}
   _player: {fileID: 0}
+  _isNotVisible: 0
+  _isLeftOfPlayer: 0
+  _offSetLeftOfPlayer: -18
 --- !u!1 &6104754125238151217
 GameObject:
   m_ObjectHideFlags: 0
