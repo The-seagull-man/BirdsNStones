@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,52 +10,73 @@ public class Movement : MonoBehaviour
     [SerializeField] private InputActionReference _moving;
     [SerializeField] private float _speedX;
     [SerializeField] private float _speedY;
-    LayerMask _layerMask;
-    [SerializeField] private bool _onGround;
-    
+    private LayerMask _layerMask;
+    [SerializeField] private int _groundCount;
+    [SerializeField] private float _gravityScale;
+    private quaternion _currentRotation;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _layerMask = LayerMask.GetMask("Ground");
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1, _layerMask);
+        if (hit && _groundCount > 0)
+        {
+            _currentRotation = Quaternion.FromToRotation(Vector2.up, hit.normal);
+            transform.rotation = _currentRotation;
+        }
+
         if (_moving.action.IsPressed())
         {
-            if (_onGround)
+            _rb.gravityScale = _gravityScale;
+
+            if (_groundCount > 0)
             {
-                _rb.linearVelocityX = _speedX;
+                
+                if (_rb.linearVelocity.magnitude < 0.01f)
+                {
+                    _rb.linearVelocityX = _speedX; 
+
+                }
+                else 
+                {
+                    _rb.linearVelocity = transform.right * _speedX;
+                }
 
             }
             else
             {
-                _rb.linearVelocityY = _speedY;
+                _rb.linearVelocityY -= _speedY;
+
             }
         }
-       /*RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10,_layerMask);
-        Debug.DrawRay(transform.pos 
-        transform.rotation = Quaternion.LookRotation(Vector2.up);
-        if (hit)
+        else
         {
-            Debug.Log(hit.normal);
-            transform.rotation = Quaternion.FromToRotation(hit.normal, transform.TransformDirection(Vector2.up));
+            _rb.gravityScale = 1;
         }
-       */
-    }
+         
+        //Debug.DrawRay(transform.position, Vector2.down,Color.darkOliveGreen, 1);
 
-    private void OnCollisionEnter2D(Collision2D collision)
+        
+
+    }
+   
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 3)
         {
-            _onGround = true;
+            _groundCount++;
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 3)
         {
-            _onGround = false;
+            _groundCount--;
+
         }
     }
 }
