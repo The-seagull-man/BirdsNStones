@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 8666796618640432084}
   - component: {fileID: 2998899326717898434}
   - component: {fileID: 3677953127037586287}
-  - component: {fileID: 4432327684567742535}
   - component: {fileID: 5192983255218209567}
   m_Layer: 0
   m_Name: Stone
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,8 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   _moving: {fileID: -4317343703518909417, guid: 7379ea60c7622ea4297a17db225bb216, type: 3}
   _speedX: 10
-  _speedY: -2
-  _onGround: 0
+  _speedY: 0.1
+  _groundCount: 0
 --- !u!50 &2998899326717898434
 Rigidbody2D:
   serializedVersion: 5
@@ -137,8 +136,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &3677953127037586287
 CircleCollider2D:
@@ -176,52 +175,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.06, y: 0.04}
   m_Radius: 1.16
---- !u!61 &4432327684567742535
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 351756291525434328}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 8.61, y: 4.5299997, z: 8.4, w: 4.3199997}
-    pivot: {x: 0.5, y: 0.513}
-    oldSize: {x: 19.2, y: 10.8}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.64, y: 0.64}
-  m_EdgeRadius: 0
 --- !u!96 &5192983255218209567
 TrailRenderer:
   serializedVersion: 4
