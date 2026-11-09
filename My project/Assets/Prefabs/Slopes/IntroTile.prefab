@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5358043160642446872}
   - component: {fileID: 9000664280398643959}
   - component: {fileID: 2433859850783265189}
+  - component: {fileID: 1821566714713468927}
   m_Layer: 3
   m_Name: IntroTile
   m_TagString: Untagged
@@ -296,6 +297,20 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1821566714713468927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286670087771270523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087d1dbef48be0a4dadbe644d5af67b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _camera: {fileID: 0}
+  _player: {fileID: 0}
 --- !u!1 &6104754125238151217
 GameObject:
   m_ObjectHideFlags: 0
