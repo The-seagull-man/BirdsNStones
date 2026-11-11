@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _speedY;
     private LayerMask _layerMask;
     [SerializeField] private int _groundCount;
+    private float _timeOnGround;
+    private float _lastVelocity;
     [SerializeField] private float _gravityScalePressed;
     [SerializeField] private float _gravityScaleReleased;
     private quaternion _currentRotation;
@@ -56,28 +58,31 @@ public class Movement : MonoBehaviour
 
             if (_groundCount > 0)
             {
-
+                _timeOnGround += Time.fixedDeltaTime;
                 if (_rb.linearVelocity.magnitude < 0.01f)
                 {
-                    _rb.linearVelocityX = _speedX;
+                    _rb.linearVelocityX = 5;
 
                 }
                 else
                 {
-                    _rb.linearVelocity = transform.right * _speedX;
+                    _lastVelocity =_rb.linearVelocity.magnitude;
+                   _rb.linearVelocity = transform.right*_speedX + transform.right * _lastVelocity/3*_timeOnGround;
+                    Debug.Log(_rb.linearVelocity.magnitude);
                 }
 
             }
             else
-            {
+             {
                 _rb.linearVelocityY -= _speedY;
-
+                _timeOnGround =0;
             }
         }
         else
         {
             _rb.gravityScale = _gravityScaleReleased;
         }
+
 
         _elapsedTime += Time.deltaTime;
 

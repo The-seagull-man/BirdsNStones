@@ -579,6 +579,9 @@ MonoBehaviour:
   smoothSpeed: 0.125
   locationOffset: {x: 7.5, y: 2, z: -10}
   rotationOffset: {x: 0, y: 0, z: 0}
+  _zoomMultiplier: 0
+  _minY: 0
+  _maxY: 0
 --- !u!1 &1502303131
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,28 +910,24 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
       value: 0.49019623
       objectReference: {fileID: 0}
-    - target: {fileID: 7293497843653939639, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7293497843653939639, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7293497843653939639, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
-      propertyPath: m_LocalRotation.z
+    - target: {fileID: 6179765654706938113, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7293497843653939639, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 197.97334
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8666796618640432084, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
+      propertyPath: _speedX
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8666796618640432084, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
       propertyPath: _onGround
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 7281423382473276381, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
