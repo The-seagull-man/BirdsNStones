@@ -16,14 +16,15 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _gravityScaleReleased;
     private quaternion _currentRotation;
     private ParticleSystem _Particles;
-
     private Animator _animator;
+    private LineRenderer _lr;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _layerMask = LayerMask.GetMask("Ground");
         _Particles = GetComponentInChildren<ParticleSystem>();
         _animator = GetComponentInChildren<Animator>();
+        _lr = GetComponent<LineRenderer>();
     }
 
     void FixedUpdate()
@@ -91,6 +92,20 @@ public class Movement : MonoBehaviour
         {
             _groundCount++;
         }
+
+        if(collision.gameObject.layer == 6 && _rb.linearVelocityY > 0.01f)
+        {
+            Vector2[] trajectory = Plot(_rb, (Vector2)transform.position, _rb.linearVelocity, 500);
+
+            _lr.positionCount = trajectory.Length;
+
+            Vector3[] positions = new Vector3[trajectory.Length];
+            for (int i = 0; i < trajectory.Length; i++)
+            {
+                positions[i] = trajectory[i];
+            }
+            _lr.SetPositions(positions);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -101,4 +116,24 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public Vector2[] Plot(Rigidbody2D rigidbody, Vector2 position, Vector2 velocity, int steps)
+    {
+        Vector2[] results = new Vector2[steps];
+
+        float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
+        Vector2 gravityAcceleration = Physics2D.gravity * rigidbody.gravityScale * timestep * timestep;
+
+        float drag = 1f - timestep * rigidbody.linearDamping;
+        Vector2 moveStep = velocity * timestep;
+
+        for (int i = 0; i < steps; i++)
+        {
+            moveStep += gravityAcceleration;
+            moveStep *= drag;
+            position += moveStep;
+            results[i] = position;
+        }
+
+        return results;
+    }
 }

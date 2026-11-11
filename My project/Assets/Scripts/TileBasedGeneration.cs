@@ -20,7 +20,7 @@ public class TileBasedGeneration : MonoBehaviour
 
     private Transform chosenLevelPrefab;
     private Vector3 lastEndPosition;
-    private Vector3 startPosition;
+    [SerializeField] private Vector3 startPosition;
 
     private void Awake()
     {
@@ -57,9 +57,15 @@ public class TileBasedGeneration : MonoBehaviour
             Debug.Log("Something went wrong");
         }
 
-
-        Transform lastLevelPartTransform = SpawnLevelPrefab(chosenLevelPrefab, lastEndPosition);
-        lastEndPosition = lastLevelPartTransform.Find("EndPosition").position;
+        if (chosenLevelPrefab == IntroLevel)
+        {
+            Transform lastLevelPartTransform = SpawnLevelPrefab(chosenLevelPrefab, startPosition);
+            lastEndPosition = lastLevelPartTransform.Find("EndPosition").position;
+        } else
+        {
+            Transform lastLevelPartTransform = SpawnLevelPrefab(chosenLevelPrefab, lastEndPosition);
+            lastEndPosition = lastLevelPartTransform.Find("EndPosition").position;
+        }
     }
 
     private Transform SpawnLevelPrefab(Transform levelPart, Vector3 spawnPostition)
