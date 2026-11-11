@@ -118,6 +118,8 @@ MonoBehaviour:
   _groundCount: 0
   _gravityScalePressed: 1.6
   _gravityScaleReleased: 1
+  _spriteObj: {fileID: 5999787770097947797}
+  _elapsedTime: 0
 --- !u!50 &2998899326717898434
 Rigidbody2D:
   serializedVersion: 5
@@ -463,7 +465,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7293497843653939639}
   - component: {fileID: 2497071320017847967}
-  - component: {fileID: 6179765654706938113}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -545,28 +546,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &6179765654706938113
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5999787770097947797}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 71d343fb04abc7e4f990b4804402d52a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6964850344327060014
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,15 +16,16 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _gravityScaleReleased;
     private quaternion _currentRotation;
     private ParticleSystem _Particles;
-    private Animator _animator;
+    [SerializeField] private GameObject _spriteObj;
+    [SerializeField] private float _elapsedTime;
     private LineRenderer _lr;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _layerMask = LayerMask.GetMask("Ground");
         _Particles = GetComponentInChildren<ParticleSystem>();
-        _animator = GetComponentInChildren<Animator>();
         _lr = GetComponent<LineRenderer>();
+        _Particles.Pause();
     }
 
     void FixedUpdate()
@@ -35,14 +36,18 @@ public class Movement : MonoBehaviour
             _currentRotation = Quaternion.FromToRotation(Vector2.up, hit.normal);
             transform.rotation = _currentRotation;
 
-            if (_rb.linearVelocity.magnitude < 0.01f)
+            if (_rb.linearVelocity.magnitude > 0.01f)
             {
                 _Particles.Play();
+            }
+            else
+            {
+                _Particles.Clear();
             }
         }
         else
         {
-            _Particles.Pause();
+            _Particles.Clear();
         }
 
         if (_moving.action.IsPressed())
@@ -73,17 +78,26 @@ public class Movement : MonoBehaviour
         {
             _rb.gravityScale = _gravityScaleReleased;
         }
+
+        _elapsedTime += Time.deltaTime;
+
         if (_rb.linearVelocityX > 0)
         {
-            _animator.SetBool("MovingRight",true);
-            _animator.speed = _rb.linearVelocity.magnitude / 10;   
+            if (_elapsedTime >= 0.1f / (_rb.linearVelocity.magnitude + 0.001f))
+            {
+                _elapsedTime = 0;
+                RotateSpriteRight();
+            }
         }
-        else
+        else if (_rb.linearVelocityX < 0)
         {
-            _animator.SetBool("MovingRight", false);
-            _animator.speed = _rb.linearVelocity.magnitude / 10;
+            if (_elapsedTime >= 0.1f / (_rb.linearVelocity.magnitude + 0.001f))
+            {
+                _elapsedTime = 0;
+                RotateSpriteLeft();
+            }
         }
-        
+
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
@@ -135,5 +149,16 @@ public class Movement : MonoBehaviour
         }
 
         return results;
+    }
+
+    void RotateSpriteRight()
+    {
+        CancelInvoke("RotateSpriteLeft");
+        _spriteObj.transform.Rotate(0, 0, -5);
+    }
+    void RotateSpriteLeft()
+    {
+        CancelInvoke("RotateSpriteRight");
+        _spriteObj.transform.Rotate(0, 0, 5);
     }
 }
