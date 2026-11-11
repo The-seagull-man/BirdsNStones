@@ -16,11 +16,14 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _gravityScaleReleased;
     private quaternion _currentRotation;
     private ParticleSystem _Particles;
+
+    private Animator _animator;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _layerMask = LayerMask.GetMask("Ground");
         _Particles = GetComponentInChildren<ParticleSystem>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void FixedUpdate()
@@ -30,7 +33,11 @@ public class Movement : MonoBehaviour
         {
             _currentRotation = Quaternion.FromToRotation(Vector2.up, hit.normal);
             transform.rotation = _currentRotation;
-            _Particles.Play();
+
+            if (_rb.linearVelocity.magnitude < 0.01f)
+            {
+                _Particles.Play();
+            }
         }
         else
         {
@@ -65,11 +72,17 @@ public class Movement : MonoBehaviour
         {
             _rb.gravityScale = _gravityScaleReleased;
         }
-         
-        //Debug.DrawRay(transform.position, Vector2.down,Color.darkOliveGreen, 1);
-
+        if (_rb.linearVelocityX > 0)
+        {
+            _animator.SetBool("MovingRight",true);
+            _animator.speed = _rb.linearVelocity.magnitude / 10;   
+        }
+        else
+        {
+            _animator.SetBool("MovingRight", false);
+            _animator.speed = _rb.linearVelocity.magnitude / 10;
+        }
         
-
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
@@ -87,4 +100,5 @@ public class Movement : MonoBehaviour
 
         }
     }
+
 }
