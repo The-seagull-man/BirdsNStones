@@ -1,13 +1,17 @@
 using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class Movement : MonoBehaviour
 {
-    public Renderer2DData _renderer2DData;
+    private bool _madeLine = false;
+    public GameObject _Bird;
+    public GameObject leaderboard;
+    public Material _shader;
     Rigidbody2D _rb;
     [SerializeField] private InputActionReference _moving;
     [SerializeField] private float _speedX;
@@ -15,7 +19,7 @@ public class Movement : MonoBehaviour
     private LayerMask _layerMask;
     [SerializeField] private int _groundCount;
     private float _timeOnGroundPressed;
-    private float _timeInAirPressed;
+    [SerializeField] private float _timeInAirPressed;
     private float _lastVelocity;
     [SerializeField] private float _gravityScalePressed;
     [SerializeField] private float _gravityScaleReleased;
@@ -31,10 +35,13 @@ public class Movement : MonoBehaviour
         _Particles = GetComponentInChildren<ParticleSystem>();
         _lr = GetComponent<LineRenderer>();
         _Particles.Pause();
+        leaderboard.SetActive(true);
     }
 
     void FixedUpdate()
     {
+        _shader.SetVector("_Visibility", new Vector4(Mathf.Clamp((_rb.linearVelocity.magnitude / 100f), 0f, 1f), 0, 0, 0));
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1, _layerMask);
         if (hit && _groundCount > 0)
         {
@@ -57,7 +64,9 @@ public class Movement : MonoBehaviour
 
         if (_moving.action.IsPressed())
         {
+            
 
+            leaderboard.SetActive(false);
 
             _rb.gravityScale = _gravityScalePressed;
 
@@ -72,8 +81,13 @@ public class Movement : MonoBehaviour
                 else
                 {
                     _lastVelocity =_rb.linearVelocity.magnitude;
-                   _rb.linearVelocity = transform.right * _speedX + transform.right * _lastVelocity / 3 * _timeOnGroundPressed;
-                    Debug.Log(_rb.linearVelocity.magnitude);
+                   _rb.linearVelocity = (transform.right * _speedX + transform.right * _lastVelocity / 3 * (_timeOnGroundPressed + 0.3f) * (_timeInAirPressed + 0.3f));
+                    //Debug.Log(_rb.linearVelocity.magnitude);
+
+                    if (_rb.linearVelocity.magnitude >= 100f)
+                    {
+                        _rb.linearVelocity *= 0.99f;
+                    }
                 }
 
             }
@@ -116,11 +130,17 @@ public class Movement : MonoBehaviour
         if(collision.gameObject.layer == 3)
         {
             _groundCount++;
+
+            _madeLine = false;
         }
 
-        if(collision.gameObject.layer == 6 && _rb.linearVelocityY > 0.01f)
+        if(collision.gameObject.layer == 6 && _rb.linearVelocityY > 1f )
         {
-            Vector2[] trajectory = Plot(_rb, (Vector2)transform.position, _rb.linearVelocity, 500);
+            if (_madeLine)
+                return;
+            _rb.linearVelocityY += _timeInAirPressed + _timeOnGroundPressed;
+
+            Vector2[] trajectory = Plot(_rb, (Vector2)transform.position, _rb.linearVelocity, 2000);
 
             _lr.positionCount = trajectory.Length;
 
@@ -131,6 +151,13 @@ public class Movement : MonoBehaviour
             }
             _lr.SetPositions(positions);
 
+            _madeLine = true;
+
+            for (int i = 0; i < _lr.positionCount; i += 100)
+            {
+                Instantiate(_Bird, _lr.GetPosition(i), quaternion.identity);
+            }
+
             _timeInAirPressed = 0;
         }
     }
@@ -139,7 +166,6 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             _groundCount--;
-
         }
     }
 
