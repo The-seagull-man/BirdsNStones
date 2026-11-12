@@ -920,11 +920,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8666796618640432084, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
       propertyPath: _speedX
-      value: 0.1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8666796618640432084, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
       propertyPath: _onGround
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8666796618640432084, guid: 5465702cdb870c343a9c2a5224e376bb, type: 3}
+      propertyPath: _gravityScaleReleased
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
