@@ -7,20 +7,26 @@ using UnityEngine.UI;
 
 public class HighscoreTable : MonoBehaviour
 {
+    [SerializeField] private GameObject _deathTXT;
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
     private void Awake()
     {
+        //PlayerPrefs.DeleteAll();
+
         entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
-        //AddHighscoreEntry(1, "TMP");
+        AddHighscoreEntry(0, "TMP");
 
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+        if (highscores.highscoreEntryList.Count == 0)
+            return;
 
         for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
         {
@@ -42,6 +48,20 @@ public class HighscoreTable : MonoBehaviour
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        if (_deathTXT.gameObject.activeSelf)
+        {
+            string _st = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            char c1 = _st[Random.Range(0, _st.Length)];
+            char c2 = _st[Random.Range(0, _st.Length)];
+            char c3 = _st[Random.Range(0, _st.Length)];
+
+            AddHighscoreEntry(ScoreManager.instance._Score, $"{c1}+{c2}+{c3}");
+        }
     }
 
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformlist)

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
@@ -10,7 +11,6 @@ public class Movement : MonoBehaviour
 {
     private bool _madeLine = false;
     public GameObject _Bird;
-    public GameObject leaderboard;
     public Material _shader;
     Rigidbody2D _rb;
     [SerializeField] private InputActionReference _moving;
@@ -38,7 +38,6 @@ public class Movement : MonoBehaviour
         _Particles = GetComponentInChildren<ParticleSystem>();
         _lr = GetComponent<LineRenderer>();
         _Particles.Pause();
-        leaderboard.SetActive(true);
         _playerStart = false;
     }
 
@@ -69,8 +68,6 @@ public class Movement : MonoBehaviour
         if (_moving.action.IsPressed())
         {
             _playerStart = true;
-
-            leaderboard.SetActive(false);
 
             _rb.gravityScale = _gravityScalePressed;
 
@@ -176,11 +173,12 @@ public class Movement : MonoBehaviour
     {
         if (collision.gameObject.layer == 3)
         {
-            Debug.Log(Vector2.Angle(_rb.linearVelocity, collision.contacts[0].normal));
+            //Debug.Log(Vector2.Angle(_rb.linearVelocity, collision.contacts[0].normal));
             if (Vector2.Angle(_rb.linearVelocity, collision.contacts[0].normal) < 60 && _playerStart == true)
             {
                 _moving.action.Disable();
                 _deathText.SetActive(true);
+                _deathText.GetComponent<TextMeshProUGUI>().text = $"You Died, Score: {ScoreManager.instance._Score}, Press Down";
             }
         }
     }
