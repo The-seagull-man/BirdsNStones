@@ -28,6 +28,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private GameObject _spriteObj;
     private float _elapsedTime;
     private LineRenderer _lr;
+     private bool _playerStart;
+    [SerializeField] private GameObject _deathText;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -36,6 +39,7 @@ public class Movement : MonoBehaviour
         _lr = GetComponent<LineRenderer>();
         _Particles.Pause();
         leaderboard.SetActive(true);
+        _playerStart = false;
     }
 
     void FixedUpdate()
@@ -64,7 +68,7 @@ public class Movement : MonoBehaviour
 
         if (_moving.action.IsPressed())
         {
-            
+            _playerStart = true;
 
             leaderboard.SetActive(false);
 
@@ -168,7 +172,18 @@ public class Movement : MonoBehaviour
             _groundCount--;
         }
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 3)
+        {
+            Debug.Log(Vector2.Angle(_rb.linearVelocity, collision.contacts[0].normal));
+            if (Vector2.Angle(_rb.linearVelocity, collision.contacts[0].normal) < 60 && _playerStart == true)
+            {
+                _moving.action.Disable();
+                _deathText.SetActive(true);
+            }
+        }
+    }
     public Vector2[] Plot(Rigidbody2D rigidbody, Vector2 position, Vector2 velocity, int steps)
     {
         Vector2[] results = new Vector2[steps];
