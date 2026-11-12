@@ -59,10 +59,11 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _Mask_contrast: 0.8
-    - _Mask_size: 0.6
+    - _Mask_size: 0.5
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Visibility: {r: 0, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

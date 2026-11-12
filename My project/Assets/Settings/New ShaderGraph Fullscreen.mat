@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: New ShaderGraph Fullscreen
-  m_Shader: {fileID: -6465566751694194690, guid: 367183f4347dbfb46939976c1822766b, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: fe80e893281fd1040a3a78864ef9b4dc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

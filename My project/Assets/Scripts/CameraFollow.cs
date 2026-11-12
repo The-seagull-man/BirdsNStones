@@ -6,6 +6,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 0.125f;
     public Vector3 locationOffset;
     public Vector3 rotationOffset;
+    public float _zoomOffSet;
     public float _zoomMultiplier;
     public float _minY;
     public float _maxY;
@@ -17,7 +18,7 @@ public class CameraFollow : MonoBehaviour
         smoothedPosition.z = -10;
         transform.position = smoothedPosition;
 
-        Camera.main.orthographicSize = Mathf.Clamp(transform.position.y * _zoomMultiplier + 1f, 7.65f, 12.65f);
+        Camera.main.orthographicSize = Mathf.Clamp(transform.position.y * _zoomMultiplier + _zoomOffSet, 7.65f, 7.65f * 3f);
 
         //Quaternion desiredrotation = target.rotation * Quaternion.Euler(rotationOffset);
         //Quaternion smoothedrotation = Quaternion.Lerp(transform.rotation, desiredrotation, smoothSpeed);

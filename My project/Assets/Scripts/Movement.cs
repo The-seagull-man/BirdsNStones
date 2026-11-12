@@ -3,23 +3,26 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class Movement : MonoBehaviour
 {
+    public Renderer2DData _renderer2DData;
     Rigidbody2D _rb;
     [SerializeField] private InputActionReference _moving;
     [SerializeField] private float _speedX;
     [SerializeField] private float _speedY;
     private LayerMask _layerMask;
     [SerializeField] private int _groundCount;
-    private float _timeOnGround;
+    private float _timeOnGroundPressed;
+    private float _timeInAirPressed;
     private float _lastVelocity;
     [SerializeField] private float _gravityScalePressed;
     [SerializeField] private float _gravityScaleReleased;
     private quaternion _currentRotation;
     private ParticleSystem _Particles;
     [SerializeField] private GameObject _spriteObj;
-    [SerializeField] private float _elapsedTime;
+    private float _elapsedTime;
     private LineRenderer _lr;
     void Start()
     {
@@ -54,11 +57,13 @@ public class Movement : MonoBehaviour
 
         if (_moving.action.IsPressed())
         {
+
+
             _rb.gravityScale = _gravityScalePressed;
 
             if (_groundCount > 0)
             {
-                _timeOnGround += Time.fixedDeltaTime;
+                _timeOnGroundPressed += Time.fixedDeltaTime;
                 if (_rb.linearVelocity.magnitude < 0.01f)
                 {
                     _rb.linearVelocityX = 5;
@@ -67,15 +72,16 @@ public class Movement : MonoBehaviour
                 else
                 {
                     _lastVelocity =_rb.linearVelocity.magnitude;
-                   _rb.linearVelocity = transform.right*_speedX + transform.right * _lastVelocity/3*_timeOnGround;
+                   _rb.linearVelocity = transform.right * _speedX + transform.right * _lastVelocity / 3 * _timeOnGroundPressed;
                     Debug.Log(_rb.linearVelocity.magnitude);
                 }
 
             }
             else
-             {
+            {
                 _rb.linearVelocityY -= _speedY;
-                _timeOnGround =0;
+                _timeInAirPressed += Time.fixedDeltaTime;
+                _timeOnGroundPressed = 0;
             }
         }
         else
@@ -124,6 +130,8 @@ public class Movement : MonoBehaviour
                 positions[i] = trajectory[i];
             }
             _lr.SetPositions(positions);
+
+            _timeInAirPressed = 0;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
